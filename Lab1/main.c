@@ -35,9 +35,24 @@ void Init(){
 int main(void){
     // Initialization
     Init();
-
-    // Polling to Check for User Button Presses
-    // [TODO]
-
+    uint32_t flag=0;
+    while(1)
+    {
+        // Polling to Check for User Button Presses
+        uint32_t mask = 1UL<<13;
+        uint32_t input = (GPIOC->IDR & mask) == mask;
+        if (input && ~flag)
+        {
+            flag = 1;
+            GPIOA->ODR |= 1UL<<5; 
+            for(int i=0; i < 1000; i++);
+        }
+        else (input && flag)
+        {
+            flag = 0;
+            GPIOA->ODR |= ~(1UL<<5);
+            for(int i=0; i < 1000; i++);
+        }
+    }
     return 0;
 }
