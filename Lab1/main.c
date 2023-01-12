@@ -18,13 +18,18 @@ void Init(){
     while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) == 0 );
 
     // Enable GPIO Clock
-    // [TODO]
+    RCC->AHB2ENR |= ((uint32_t)0x00000005U) //Enables GPIO A and C
 
     // Initialize Green LED
-    // [TODO]
+    GPIOA->MODER &=  ~(3UL<<10);
+    GPIOA->MODER |= 1UL<<10;
+    GPIOA->OTYPER &= ~(1UL<<5);
+    GPIOA->PUPDR &= ~(3UL<<10);
 
+    //GPIOB->ODR |= 1UL << 2; // Output 1 to turn on red LED
     // Initialize User Button
-    // [TODO]
+    GPIOC->MODER &= ~(3UL<<26);
+    GPIOC->PUPDR &= ~(3UL<<26);
 }
 
 int main(void){
