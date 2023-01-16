@@ -18,7 +18,7 @@ void Init(){
     while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) == 0 );
 
     // Enable GPIO Clock
-    RCC->AHB2ENR |= ((uint32_t)0x00000005U) //Enables GPIO A and C
+    RCC->AHB2ENR |= ((uint32_t)0x00000005U); //Enables GPIO A and C
 
     // Initialize Green LED
     GPIOA->MODER &=  ~(3UL<<10);
@@ -47,7 +47,7 @@ int main(void){
             GPIOA->ODR |= 1UL<<5; 
             for(int i=0; i < 1000; i++);
         }
-        else (input && flag)
+        else if (input && flag)
         {
             flag = 0;
             GPIOA->ODR |= ~(1UL<<5);
