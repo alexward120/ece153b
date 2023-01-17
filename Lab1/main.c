@@ -18,40 +18,31 @@ void Init(){
     while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) == 0 );
 
     // Enable GPIO Clock
-    RCC->AHB2ENR |= ((uint32_t)0x00000005U); //Enables GPIO A and C
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN; //Enables GPIO A and C
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
 
     // Initialize Green LED
-    GPIOA->MODER &=  ~(3UL<<10);
-    GPIOA->MODER |= 1UL<<10;
-    GPIOA->OTYPER &= ~(1UL<<5);
-    GPIOA->PUPDR &= ~(3UL<<10);
+    GPIOA->MODER &= ~GPIO_MODER_MODE5;
+    GPIOA->MODER |= GPIO_MODER_MODE5_0;
+    GPIOA->OTYPER &= ~GPIO_OTYPER_OT_5;
+    GPIOA->PUPDR &= ~GPIO_PUPDR_PUPD5;
 
     //GPIOB->ODR |= 1UL << 2; // Output 1 to turn on red LED
     // Initialize User Button
-    GPIOC->MODER &= ~(3UL<<26);
-    GPIOC->PUPDR &= ~(3UL<<26);
+    GPIOC->MODER &= ~GPIO_MODER_MODE13;
+    GPIOC->PUPDR &= ~GPIO_PUPDR_PUPD13;
 }
 
-int main(void){
+int main(void) {
     // Initialization
     Init();
     uint32_t flag=0;
     while(1)
     {
         // Polling to Check for User Button Presses
-        uint32_t mask = 1UL<<13;
-        uint32_t input = (GPIOC->IDR & mask) == mask;
-        if (input && ~flag)
+        if ((GPIOC->IDR) & GPIO_IDR_ID13)
         {
-            flag = 1;
-            GPIOA->ODR |= 1UL<<5; 
-            for(int i=0; i < 1000; i++);
-        }
-        else if (input && flag)
-        {
-            flag = 0;
-            GPIOA->ODR |= ~(1UL<<5);
-            for(int i=0; i < 1000; i++);
+            GPIOA->ODR ^= GPIO_ODR_OD5
         }
     }
     return 0;
