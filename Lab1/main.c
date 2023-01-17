@@ -36,13 +36,12 @@ void Init(){
 int main(void) {
     // Initialization
     Init();
-    uint32_t flag=0;
     while(1)
     {
         // Polling to Check for User Button Presses
         if ((GPIOC->IDR) & GPIO_IDR_ID13)
         {
-            GPIOA->ODR ^= GPIO_ODR_OD5
+            GPIOA->ODR ^= GPIO_ODR_OD5;
         }
     }
     return 0;
