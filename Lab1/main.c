@@ -39,9 +39,10 @@ int main(void) {
     while(1)
     {
         // Polling to Check for User Button Presses
-        if ((GPIOC->IDR) & GPIO_IDR_ID13)
+        if (!((GPIOC->IDR) & GPIO_IDR_ID13))
         {
             GPIOA->ODR ^= GPIO_ODR_OD5;
+			while(!((GPIOC->IDR) & GPIO_IDR_ID13));
         }
     }
     return 0;
