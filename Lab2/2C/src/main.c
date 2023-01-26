@@ -61,7 +61,7 @@ void RTC_Alarm_IRQHandler(void) {
 	}
 	RTC->ISR &= ~RTC_ISR_ALRAF;
 	RTC -> ISR &= ~RTC_ISR_ALRBF;
-	EXTI->PR1 |= EXTI_PR1_PIF18;;
+	EXTI->PR1 |= EXTI_PR1_PIF18;
 }
 
 int main(void) {	
