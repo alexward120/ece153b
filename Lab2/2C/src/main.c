@@ -1,8 +1,8 @@
 /*
  * ECE 153B - Winter 2023
  *
- * Name(s):
- * Section:
+ * Name(s): Alexander Ward, Diego Jerez
+ * Section: W 7pm
  * Lab: 2C
  */
  
