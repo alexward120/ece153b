@@ -24,7 +24,7 @@ void EXTI_Init(void) {
 	EXTI->FTSR1 |= EXTI_FTSR1_FT13;
 	
 	// Enable EXTI
-	EXTI->IMR1 |= EXTI_IMR1_IM13
+	EXTI->IMR1 |= EXTI_IMR1_IM13;
 	
 	// Configure and Enable in NVIC
 	NVIC_EnableIRQ(EXTI15_10_IRQn);
