@@ -30,10 +30,10 @@ void UART1_GPIO_Init(void) { //pb6 , pb7
 	GPIOB->MODER &= ~GPIO_MODER_MODE7;
 	GPIOB->MODER |= GPIO_MODER_MODE7_1;
 
-	GPIOA->AFR[0] |= GPIO_AFRL_AFSEL6; //setting pin6(channel 7 which has usart2_tx)
-	GPIOA->AFR[0] &= ~GPIO_AFRL_AFSEL6_3;
-	GPIOA->AFR[0] |= GPIO_AFRL_AFSEL7; //setting pin7(channel 7 which has usart2_rx)
-	GPIOA->AFR[0] &= ~GPIO_AFRL_AFSEL7_3;
+	GPIOB->AFR[0] |= GPIO_AFRL_AFSEL6; //setting pin6(channel 7 which has usart2_tx)
+	GPIOB->AFR[0] &= ~GPIO_AFRL_AFSEL6_3;
+	GPIOB->AFR[0] |= GPIO_AFRL_AFSEL7; //setting pin7(channel 7 which has usart2_rx)
+	GPIOB->AFR[0] &= ~GPIO_AFRL_AFSEL7_3;
 }
 
 void UART2_GPIO_Init(void) { //pa2 , pa3
@@ -69,8 +69,8 @@ void USART_Init(USART_TypeDef* USARTx) {
 	
 	USARTx->BRR = 80000000 / 9600; //setting baud rate to 9600 (CLK / baud rate)
 
-	USARTx->CR |= USART_CR1_TE; //enable transmitter
-	USARTx->CR |= USART_CR1_RE; //enable receiver
+	USARTx->CR1 |= USART_CR1_TE; //enable transmitter
+	USARTx->CR1 |= USART_CR1_RE; //enable receiver
 
 	USARTx->CR1 |= USART_CR1_UE; //enabling usart
 }
