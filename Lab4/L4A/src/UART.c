@@ -1,17 +1,39 @@
 #include "UART.h"
 
 void UART1_Init(void) {
-	// [TODO]
-}
-
-void UART2_Init(void) {
-	RCC->APB1ENR1 = RCC_APB1ENR1_USART2EN; //enable the uart2 clock
+	RCC->APB2ENR = RCC_APB2ENR_USART1EN; //enable the uart2 clock
 	RCC->CFGR &= ~RCC_CFGR_MCOSEL;
 	RCC->CFGR |= RCC_CFGR_MCOSEL_0;  //setting the uart2 port clock to be system clock
 }
 
-void UART1_GPIO_Init(void) {
-	// [TODO]
+void UART2_Init(void) {
+	RCC->APB1ENR1 = RCC_APB1ENR1_USART2EN; //enable the uart1 clock
+	RCC->CFGR &= ~RCC_CFGR_MCOSEL;
+	RCC->CFGR |= RCC_CFGR_MCOSEL_0;  //setting the uart1 port clock to be system clock
+}
+
+void UART1_GPIO_Init(void) { //pb6 , pb7
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN; //turning on clock for gpioB
+	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED6; //turning on highest speed pin 6
+	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED7; //turning on highest speed pin 7
+	
+	GPIOB->OTYPER &= ~GPIO_OTYPER_OT6; //setting pushpull (0)
+	GPIOB->OTYPER &= ~GPIO_OTYPER_OT7;
+
+	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPD6; //setting pin to pull up
+	GPIOB->PUPDR |= GPIO_PUPDR_PUPD6_0;
+	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPD7;
+	GPIOB->PUPDR |= GPIO_PUPDR_PUPD7_0;
+
+	GPIOB->MODER &= ~GPIO_MODER_MODE6; //setting the mode type to alternate functions
+	GPIOB->MODER |= GPIO_MODER_MODE6_1;
+	GPIOB->MODER &= ~GPIO_MODER_MODE7;
+	GPIOB->MODER |= GPIO_MODER_MODE7_1;
+
+	GPIOA->AFR[0] |= GPIO_AFRL_AFSEL6; //setting pin6(channel 7 which has usart2_tx)
+	GPIOA->AFR[0] &= ~GPIO_AFRL_AFSEL6_3;
+	GPIOA->AFR[0] |= GPIO_AFRL_AFSEL7; //setting pin7(channel 7 which has usart2_rx)
+	GPIOA->AFR[0] &= ~GPIO_AFRL_AFSEL7_3;
 }
 
 void UART2_GPIO_Init(void) { //pa2 , pa3
@@ -40,7 +62,17 @@ void UART2_GPIO_Init(void) { //pa2 , pa3
 }
 
 void USART_Init(USART_TypeDef* USARTx) {
-	// [TODO]
+	USARTx->CR1 &= ~USART_CR1_UE; //disabling usart to modify registers
+	USARTx->CR1 &= ~USART_CR1_M; //setting word length to 8 bits
+	USARTx->CR1 &= ~USART_CR1_OVER8; //enable oversampling by 16 bit
+	USARTx->CR1 &= ~USART_CR2_STOP; //setting stop bit amount to 1
+	
+	USARTx->BRR = 80000000 / 9600; //setting baud rate to 9600 (CLK / baud rate)
+
+	USARTx->CR |= USART_CR1_TE; //enable transmitter
+	USARTx->CR |= USART_CR1_RE; //enable receiver
+
+	USARTx->CR1 |= USART_CR1_UE; //enabling usart
 }
 
 uint8_t USART_Read (USART_TypeDef * USARTx) {

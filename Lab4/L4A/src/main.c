@@ -40,6 +40,21 @@ int main(void) {
 	
 	char rxByte;
 	while(1) {
-		// [TODO]
+		printf("Enter a command(Y/N):\n");
+		scanf('%s', rxByte);
+		if (rxByte == 'Y' || rxByte == 'y')
+		{
+			Green_LED_On();
+			printf("Green LED turned on\n");
+		}
+		else if (rxByte == 'N' || rxByte == 'n')
+		{
+			Green_LED_Off();
+			printf("Green LED turned off");
+		}
+		else
+		{
+			printf("Invalid Command\n");
+		}
 	}
 }
