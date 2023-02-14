@@ -11,6 +11,7 @@
 #include "SysClock.h"
 #include "UART.h"
 #include <string.h>
+#include <stdio.h>
 
 // Initializes USARTx
 // USART2: UART Communication with Termite
@@ -43,18 +44,27 @@ int main(void) {
 	uint8_t SlaveAddress;
 	uint8_t Data_Receive;
 	uint8_t Data_Send;
+	printf("Here\n");
 	while(1) {	
 		// Determine Slave Address
 		//
 		// Note the "<< 1" must be present because bit 0 is treated as a don't care in 7-bit addressing mode
-		SlaveAddress = 0b1111111 << 1; // STUB - Fill in correct address 
+		SlaveAddress = 0b1001000 << 1; // STUB - Fill in correct address 
 		
-		// [TODO] - Get Temperature
+		//Get Temperature
 		// 
 		// First, send a command to the sensor for reading the temperature
+		I2C_SendData(I2C1, SlaveAddress, &Data_Send, 1);
 		// Next, get the measurement
+		I2C_ReceiveData(I2C1, SlaveAddress, &Data_Receive, 1);
 		
-		// [TODO] - Print Temperature to Termite
+		// Print Temperature to Termite
+		if(Data_Receive & 0x80) {
+			Data_Receive = ~Data_Receive;
+			Data_Receive += 0x01;
+			Data_Receive *= -1;
+		}
+		printf("%d\n", Data_Receive);
 		
 		// Some delay
 		for(i = 0; i < 50000; ++i); 
