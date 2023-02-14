@@ -31,6 +31,7 @@ int main(void){
 	
 	while(1) {
 		// TODO
+		SPI_Transfer_Byte(
 		
 		// delay between SPI transfers to observe LED behavior
 	    delay(1000);
