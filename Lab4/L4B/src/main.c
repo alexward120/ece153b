@@ -41,9 +41,10 @@ int main(void) {
 	Init_USARTx(2);
 	
 	int i;
+	char message[6];
 	uint8_t SlaveAddress;
-	uint8_t Data_Receive;
-	uint8_t Data_Send;
+	uint8_t Data_Receive[6];
+	uint8_t Data_Send[6];
 	printf("Here\n");
 	while(1) {	
 		// Determine Slave Address
@@ -51,20 +52,20 @@ int main(void) {
 		// Note the "<< 1" must be present because bit 0 is treated as a don't care in 7-bit addressing mode
 		SlaveAddress = 0b1001000 << 1; // STUB - Fill in correct address 
 		
+		Data_Send[0] = 0x00;
+
 		//Get Temperature
 		// 
 		// First, send a command to the sensor for reading the temperature
-		I2C_SendData(I2C1, SlaveAddress, &Data_Send, 1);
-		// Next, get the measurement
-		I2C_ReceiveData(I2C1, SlaveAddress, &Data_Receive, 1);
+		I2C_SendData(I2C1, SlaveAddress, Data_Send, 1);
 		
+		// Next, get the measurement
+		I2C_ReceiveData(I2C1, SlaveAddress, Data_Receive, 1);
+		int temperature = (Data_Receive[0] & 0x7F) - (((Data_Receive[0] & 0x80) != 0) ? 128 : 0);
 		// Print Temperature to Termite
-		if(Data_Receive & 0x80) {
-			Data_Receive = ~Data_Receive;
-			Data_Receive += 0x01;
-			Data_Receive *= -1;
-		}
-		printf("%d\n", Data_Receive);
+		
+		printf(message, "Current temp = %6d\n", temperature);
+		printf("%s", message);
 		
 		// Some delay
 		for(i = 0; i < 50000; ++i); 

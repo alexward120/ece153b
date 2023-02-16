@@ -1,0 +1,116 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Diego Jerez, UC Santa Barbara, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.38.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.19
+Assembler:       Armasm.exe V6.19
+Linker/Locator:  ArmLink.exe V6.19
+Library Manager: ArmAr.exe V6.19
+Hex Converter:   FromElf.exe V6.19
+CPU DLL:         SARMCM3.DLL V5.38.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+C:\Users\djere\Classes\_CS Projects for School\ece153a\Lab4\L4C\project.uvprojx
+Project File Date:  02/15/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+src/LED.c(9): warning: In file included from...
+src/LED.h(12): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+1 warning generated.
+compiling LED.c...
+assembling startup_stm32l476xx.s...
+src/main.c(10): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+src/main.c(20): warning: no previous extern declaration for non-static variable 'transmit' [-Wmissing-variable-declarations]
+uint8_t transmit = 0;
+        ^
+src/main.c(20): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t transmit = 0;
+^
+src/main.c(21): warning: no previous extern declaration for non-static variable 'receive' [-Wmissing-variable-declarations]
+uint8_t receive = 0;
+        ^
+src/main.c(21): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t receive = 0;
+^
+src/main.c(37): error: expected ')'
+            delay(1000);
+                       ^
+src/main.c(34): note: to match this '('
+                SPI_Transfer_Byte(
+                                 ^
+3 warnings and 1 error generated.
+compiling main.c...
+src/SysClock.c(1): warning: In file included from...
+src/SysClock.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+1 warning generated.
+compiling SysClock.c...
+src/SPI.c(1): warning: In file included from...
+src/SPI.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+1 warning generated.
+compiling SPI.c...
+src/SysTimer.c(2): warning: In file included from...
+src/SysTimer.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+src/SysTimer.c(4): warning: no previous extern declaration for non-static variable 'msTicks' [-Wmissing-variable-declarations]
+volatile uint32_t msTicks;
+                  ^
+src/SysTimer.c(4): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile uint32_t msTicks;
+         ^
+2 warnings generated.
+compiling SysTimer.c...
+".\Objects\project.axf" - 1 Error(s), 8 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32L4xx_DFP.2.6.1.pack
+                Keil.STM32L4xx_DFP.2.6.1
+                STMicroelectronics STM32L4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Target_1
+  C:/Users/djere/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/djere/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.6.1/Drivers/CMSIS/Device/ST/STM32L4xx/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+Target not created.
+Build Time Elapsed:  00:00:00
+</pre>
+</body>
+</html>

@@ -72,7 +72,7 @@ void I2C_Initialization(void){
 	
 	//enable analog noise filter, disable digital noise filter
 	I2C1->CR1 &= ~I2C_CR1_ANFOFF;
-	I2C1->CR1 |= I2C_CR1_DNF;
+	I2C1->CR1 &= ~I2C_CR1_DNF;
 	
 	//enable error interrupts & clock stretching
 	I2C1->CR1 |= I2C_CR1_ERRIE;
@@ -93,16 +93,21 @@ void I2C_Initialization(void){
 	//I2C1->TIMINGR |= 0x2 << I2C_TIMINGR_SCLDEL_POS; //min data setup time: 1us -> 3 cycles
 	//I2C1->TIMINGR |= 0x2 << I2C_TIMINGR_SDADEL_POS; //min data hold time: 1.25us -> 3 cycles
 	
-	I2C1->TIMINGR |= 0x7 << I2C_TIMINGR_PRESC_POS;  //psc: 7 -> 0.5 us clk period
-	I2C1->TIMINGR |= 0x2E << I2C_TIMINGR_SCLL_POS;   //min low clk period: 4.7us -> 10 cycles
-	I2C1->TIMINGR |= 0x28 << I2C_TIMINGR_SCLH_POS;   //min high clk period: 5us -> 11 cycles
-	I2C1->TIMINGR |= 0xA << I2C_TIMINGR_SCLDEL_POS; //min data setup time: 1us -> 3 cycles
-	I2C1->TIMINGR |= 0xC << I2C_TIMINGR_SDADEL_POS; //min data hold time: 1.25us -> 3 cycles
+	I2C1->TIMINGR |= 0x7 << I2C_TIMINGR_PRESC_POS;  //psc: 7 -> 0.1 us clk period
+	I2C1->TIMINGR |= 0x31 << I2C_TIMINGR_SCLL_POS;   //min low clk period: 4.7us -> 48 cycles
+	I2C1->TIMINGR |= 0x31 << I2C_TIMINGR_SCLH_POS;   //min high clk period: 5us -> 51 cycles
+	I2C1->TIMINGR |= 0xD << I2C_TIMINGR_SCLDEL_POS; //min data setup time: 1us -> 3 cycles
+	I2C1->TIMINGR |= 0xD << I2C_TIMINGR_SDADEL_POS; //min data hold time: 1.25us -> 13 cycles
 	
 	//set own address in own address regs
 	I2C1->OAR1 &= ~I2C_OAR1_OA1EN;
 	I2C1->OAR1 &= ~I2C_OAR1_OA1MODE;
-	I2C1->OAR1 |= OwnAddr << 1;
+	
+	I2C1->OAR2 &= ~I2C_OAR2_OA2EN;
+
+	I2C1->OAR1 = (I2C1->OAR1 & ~(I2C_OAR1_OA1)) | OwnAddr;
+	
+	
 	I2C1->OAR1 |= I2C_OAR1_OA1EN;
 
 	//re-enable control register
