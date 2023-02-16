@@ -14,25 +14,28 @@
 #include "SysTimer.h"
 #include <stdio.h>
 
-#define SPI_MASTER SPI2
-#define SPI_SLAVE SPI3
-
 uint8_t transmit = 0;
 uint8_t receive = 0;
 
 int main(void){
 	System_Clock_Init();   // System Clock = 80 MHz
 	SysTick_Init();
-	
+
 	LED_Init();
-	
+
 	SPI2_GPIO_Init();
 	SPI2_Init();
-	
+
 	while(1) {
 		// TODO
-		SPI_Transfer_Byte(
-		
+		SPI_Send_Byte(SPI1, transmit);
+		SPI_Receive_Byte(SPI2, &receive);
+		if (transmit == receive) {
+			LED_Toggle();
+		}
+
+		transmit = (transmit + 1) % 10;
+
 		// delay between SPI transfers to observe LED behavior
 	    delay(1000);
 	}
