@@ -16,33 +16,20 @@ extern void Error_Handler(void);
 //                        I2C GPIO Initialization
 //===============================================================================
 void I2C_GPIO_Init(void) {
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN; //init clock
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
 	
-	//set mode to alternate function
-	GPIOB->MODER &= ~GPIO_MODER_MODE6;
-	GPIOB->MODER &= ~GPIO_MODER_MODE7;
-	GPIOB->MODER |= GPIO_MODER_MODE6_1;
-	GPIOB->MODER |= GPIO_MODER_MODE7_1;
+	GPIOB->MODER &= ~(GPIO_MODER_MODE6 | GPIO_MODER_MODE7);
+	GPIOB->MODER |= GPIO_MODER_MODE6_1 | GPIO_MODER_MODE7_1;
 	
-	//set alt fn to I2C1
-	GPIOB->AFR[0] &= ~GPIO_AFRL_AFSEL6;
-	GPIOB->AFR[0] |= GPIO_AFRL_AFSEL6_2;
-	GPIOB->AFR[0] &= ~GPIO_AFRL_AFSEL7;
-	GPIOB->AFR[0] |= GPIO_AFRL_AFSEL7_2;
+	GPIOB->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR6 | GPIO_OSPEEDER_OSPEEDR7;
 	
-	//set output type to open/drain
-	GPIOB->OTYPER |= GPIO_OTYPER_OT6;
-	GPIOB->OTYPER |= GPIO_OTYPER_OT7;
-
-	//set output speed to very high
-	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED6;
-	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED7;
+	GPIOB->OTYPER |= GPIO_OTYPER_OT6 | GPIO_OTYPER_OT7;
 	
-	//set input type to pu/pd
-	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPD6;
-	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPD7;
-	GPIOB->PUPDR |= GPIO_PUPDR_PUPD6_0;
-	GPIOB->PUPDR |= GPIO_PUPDR_PUPD7_0;
+	GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPD6 | GPIO_PUPDR_PUPD7);
+	GPIOB->PUPDR |= GPIO_PUPDR_PUPD6_0 | GPIO_PUPDR_PUPD7_0;
+	
+	GPIOB->AFR[0] &= ~(GPIO_AFRL_AFSEL6 | GPIO_AFRL_AFSEL7);
+	GPIOB->AFR[0] |= GPIO_AFRL_AFSEL6_2 | GPIO_AFRL_AFSEL7_2;
 }
 	
 #define I2C_TIMINGR_PRESC_POS	28
@@ -59,58 +46,33 @@ void I2C_Initialization(void){
 	
 	RCC->APB1ENR1 |= RCC_APB1ENR1_I2C1EN;
 	
-	//set I2C1 clock as system clock
-	RCC->CCIPR &=  ~RCC_CCIPR_I2C1SEL;
-	RCC->CCIPR |=  RCC_CCIPR_I2C1SEL_0;
+	RCC->CCIPR &= ~RCC_CCIPR_I2C1SEL;
+	RCC->CCIPR |= RCC_CCIPR_I2C1SEL_0;
 	
-	//reset I2C1
 	RCC->APB1RSTR1 |= RCC_APB1RSTR1_I2C1RST;
 	RCC->APB1RSTR1 &= ~RCC_APB1RSTR1_I2C1RST;
 	
-	//disable I2C before writing to regs
 	I2C1->CR1 &= ~I2C_CR1_PE;
 	
-	//enable analog noise filter, disable digital noise filter
-	I2C1->CR1 &= ~I2C_CR1_ANFOFF;
-	I2C1->CR1 &= ~I2C_CR1_DNF;
-	
-	//enable error interrupts & clock stretching
+	I2C1->CR1 &= ~(I2C_CR1_ANFOFF | I2C_CR1_DNF | I2C_CR1_NOSTRETCH);
 	I2C1->CR1 |= I2C_CR1_ERRIE;
-	I2C1->CR1 &= ~I2C_CR1_NOSTRETCH;
 	
-	//set master to operate in 7 bit addressing mode
 	I2C1->CR2 &= ~I2C_CR2_ADD10;
+	I2C1->CR2 |= I2C_CR2_AUTOEND | I2C_CR2_NACK;
 	
-	//play knack (enable autoend mode and nack gen)
-	I2C1->CR2 |= I2C_CR2_AUTOEND;
-	I2C1->CR2 |= I2C_CR2_NACK;
+	I2C1->TIMINGR &= ~(I2C_TIMINGR_PRESC | I2C_TIMINGR_SCLDEL | I2C_TIMINGR_SDADEL | I2C_TIMINGR_SCLH | I2C_TIMINGR_SCLL);
+	I2C1->TIMINGR |= (7U << I2C_TIMINGR_PRESC_POS) |
+									 (14U << I2C_TIMINGR_SCLDEL_POS) |
+									 (14U << I2C_TIMINGR_SDADEL_POS) |
+	                 (49U << I2C_TIMINGR_SCLH_POS) |
+	                 (49U << I2C_TIMINGR_SCLL_POS);
 	
-	//set timing reg values
-	I2C1->TIMINGR = 0; //reset register first
-	//I2C1->TIMINGR |= 0x7 << I2C_TIMINGR_PRESC_POS;  //psc: 7 -> 0.5 us clk period
-	//I2C1->TIMINGR |= 0x9 << I2C_TIMINGR_SCLL_POS;   //min low clk period: 4.7us -> 10 cycles
-	//I2C1->TIMINGR |= 0xA << I2C_TIMINGR_SCLH_POS;   //min high clk period: 5us -> 11 cycles
-	//I2C1->TIMINGR |= 0x2 << I2C_TIMINGR_SCLDEL_POS; //min data setup time: 1us -> 3 cycles
-	//I2C1->TIMINGR |= 0x2 << I2C_TIMINGR_SDADEL_POS; //min data hold time: 1.25us -> 3 cycles
-	
-	I2C1->TIMINGR |= 0x7 << I2C_TIMINGR_PRESC_POS;  //psc: 7 -> 0.1 us clk period
-	I2C1->TIMINGR |= 0x31 << I2C_TIMINGR_SCLL_POS;   //min low clk period: 4.7us -> 48 cycles
-	I2C1->TIMINGR |= 0x31 << I2C_TIMINGR_SCLH_POS;   //min high clk period: 5us -> 51 cycles
-	I2C1->TIMINGR |= 0xD << I2C_TIMINGR_SCLDEL_POS; //min data setup time: 1us -> 3 cycles
-	I2C1->TIMINGR |= 0xD << I2C_TIMINGR_SDADEL_POS; //min data hold time: 1.25us -> 13 cycles
-	
-	//set own address in own address regs
 	I2C1->OAR1 &= ~I2C_OAR1_OA1EN;
+  I2C1->OAR2 &= ~I2C_OAR2_OA2EN;
+	
 	I2C1->OAR1 &= ~I2C_OAR1_OA1MODE;
-	
-	I2C1->OAR2 &= ~I2C_OAR2_OA2EN;
-
 	I2C1->OAR1 = (I2C1->OAR1 & ~(I2C_OAR1_OA1)) | OwnAddr;
-	
-	
 	I2C1->OAR1 |= I2C_OAR1_OA1EN;
-
-	//re-enable control register
 	I2C1->CR1 |= I2C_CR1_PE;
 }
 

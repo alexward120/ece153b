@@ -3,7 +3,7 @@
 void UART1_Init(void) {
 	RCC->APB2ENR = RCC_APB2ENR_USART1EN; //enable the uart2 clock
 	RCC->CFGR &= ~RCC_CFGR_MCOSEL;
-	RCC->CFGR |= RCC_CFGR_MCOSEL_0;  //setting the uart2 port clock to be system clock
+	RCC->CFGR |= RCC_CFGR_MCOSEL_0;  //setting the uart2 port clock to be system clock]
 }
 
 void UART2_Init(void) {
@@ -12,7 +12,7 @@ void UART2_Init(void) {
 	RCC->CFGR |= RCC_CFGR_MCOSEL_0;  //setting the uart1 port clock to be system clock
 }
 
-void UART1_GPIO_Init(void) { //pb6 , pb7
+void UART1_GPIO_Init(void) {
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN; //turning on clock for gpioB
 	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED6; //turning on highest speed pin 6
 	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED7; //turning on highest speed pin 7
@@ -36,7 +36,7 @@ void UART1_GPIO_Init(void) { //pb6 , pb7
 	GPIOB->AFR[0] &= ~GPIO_AFRL_AFSEL7_3;
 }
 
-void UART2_GPIO_Init(void) { //pa2 , pa3
+void UART2_GPIO_Init(void) {
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN; //turning on clock for gpioA
 	GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEED2; //turning on highest speed pin 2
 	GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEED3; //turning on highest speed pin 3
@@ -58,7 +58,6 @@ void UART2_GPIO_Init(void) { //pa2 , pa3
 	GPIOA->AFR[0] &= ~GPIO_AFRL_AFSEL2_3;
 	GPIOA->AFR[0] |= GPIO_AFRL_AFSEL3; //setting pin3(channel 7 which has usart2_rx)
 	GPIOA->AFR[0] &= ~GPIO_AFRL_AFSEL3_3;
-
 }
 
 void USART_Init(USART_TypeDef* USARTx) {
@@ -74,7 +73,6 @@ void USART_Init(USART_TypeDef* USARTx) {
 
 	USARTx->CR1 |= USART_CR1_UE; //enabling usart
 }
-
 
 uint8_t USART_Read (USART_TypeDef * USARTx) {
 	// SR_RXNE (Read data register not empty) bit is set by hardware

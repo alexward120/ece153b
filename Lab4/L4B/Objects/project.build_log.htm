@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.38.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Diego Jerez, UC Santa Barbara, LIC=----
+License Information: Alexander Ward, UCSB, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.38.0.0
@@ -21,13 +21,41 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\Users\djere\Classes\_CS Projects for School\ece153a\Lab4\L4B\project.uvprojx
-Project File Date:  02/13/2023
+C:\Users\zande\Downloads\L4B\project.uvprojx
+Project File Date:  02/18/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-".\Objects\project.axf" - 0 Error(s), 0 Warning(s).
+src/main.c(9): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+src/main.c(18): warning: no previous prototype for function 'Init_USARTx' [-Wmissing-prototypes]
+void Init_USARTx(int x) {
+     ^
+src/main.c(18): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void Init_USARTx(int x) {
+^
+static 
+src/main.c(52): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                SlaveAddress = 0b1001000 << 1; // STUB - Fill in correct address 
+                               ^
+src/main.c(60): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+                int temp = (Data_Receive[0] & 0x7F) - (((Data_Receive[0] & 0x80) != 0) ? 128 : 0);
+                    ^
+src/main.c(42): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        int i;
+            ^
+src/main.c(61): warning: 'sprintf' will always overflow; destination buffer has size 6, but format string expands to at least 32 [-Wfortify-source]
+                sprintf(message, "Current Temperature: %6d C.\n", temp);
+                ^
+6 warnings generated.
+compiling main.c...
+linking...
+Program Size: Code=9376 RO-data=1000 RW-data=0 ZI-data=1720  
+FromELF: creating hex file...
+".\Objects\project.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -44,8 +72,8 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_Target_1
-  C:/Users/djere/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/djere/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.6.1/Drivers/CMSIS/Device/ST/STM32L4xx/Include
+  C:/Users/zande/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/zande/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.6.1/Drivers/CMSIS/Device/ST/STM32L4xx/Include
 
 <h2>Collection of Component Files used:</h2>
 

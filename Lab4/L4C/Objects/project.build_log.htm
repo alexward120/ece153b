@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.38.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Diego Jerez, UC Santa Barbara, LIC=----
+License Information: Alexander Ward, UCSB, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.38.0.0
@@ -21,44 +21,13 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\Users\djere\Classes\_CS Projects for School\ece153a\Lab4\L4C\project.uvprojx
-Project File Date:  02/15/2023
+C:\Users\zande\Downloads\L4C\project.uvprojx
+Project File Date:  02/18/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-src/LED.c(9): warning: In file included from...
-src/LED.h(12): warning: In file included from...
-src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-1 warning generated.
-compiling LED.c...
 assembling startup_stm32l476xx.s...
-src/main.c(10): warning: In file included from...
-src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-src/main.c(20): warning: no previous extern declaration for non-static variable 'transmit' [-Wmissing-variable-declarations]
-uint8_t transmit = 0;
-        ^
-src/main.c(20): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint8_t transmit = 0;
-^
-src/main.c(21): warning: no previous extern declaration for non-static variable 'receive' [-Wmissing-variable-declarations]
-uint8_t receive = 0;
-        ^
-src/main.c(21): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint8_t receive = 0;
-^
-src/main.c(37): error: expected ')'
-            delay(1000);
-                       ^
-src/main.c(34): note: to match this '('
-                SPI_Transfer_Byte(
-                                 ^
-3 warnings and 1 error generated.
-compiling main.c...
 src/SysClock.c(1): warning: In file included from...
 src/SysClock.h(4): warning: In file included from...
 src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
@@ -66,6 +35,24 @@ src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
                                            ^
 1 warning generated.
 compiling SysClock.c...
+src/main.c(10): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+src/main.c(17): warning: no previous extern declaration for non-static variable 'transmit' [-Wmissing-variable-declarations]
+uint8_t transmit = 1;
+        ^
+src/main.c(17): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t transmit = 1;
+^
+src/main.c(18): warning: no previous extern declaration for non-static variable 'receive' [-Wmissing-variable-declarations]
+uint8_t receive = 0;
+        ^
+src/main.c(18): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t receive = 0;
+^
+3 warnings generated.
+compiling main.c...
 src/SPI.c(1): warning: In file included from...
 src/SPI.h(4): warning: In file included from...
 src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
@@ -86,7 +73,17 @@ volatile uint32_t msTicks;
          ^
 2 warnings generated.
 compiling SysTimer.c...
-".\Objects\project.axf" - 1 Error(s), 8 Warning(s).
+src/LED.c(9): warning: In file included from...
+src/LED.h(12): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+1 warning generated.
+compiling LED.c...
+linking...
+Program Size: Code=2204 RO-data=424 RW-data=4 ZI-data=1644  
+FromELF: creating hex file...
+".\Objects\project.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -103,14 +100,13 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_Target_1
-  C:/Users/djere/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/djere/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.6.1/Drivers/CMSIS/Device/ST/STM32L4xx/Include
+  C:/Users/zande/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/zande/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.6.1/Drivers/CMSIS/Device/ST/STM32L4xx/Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
-Target not created.
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
