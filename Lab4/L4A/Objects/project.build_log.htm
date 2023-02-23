@@ -27,6 +27,19 @@ Project File Date:  02/09/2023
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
+src/UART_printf.c(1): warning: In file included from...
+src/UART.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+src/UART_printf.c(14): warning: unused parameter 'f' [-Wunused-parameter]
+int fputc(int ch, FILE *f) { 
+                        ^
+src/UART_printf.c(23): warning: unused parameter 'f' [-Wunused-parameter]
+int fgetc(FILE *f) {  
+                ^
+3 warnings generated.
+compiling UART_printf.c...
 src/main.c(10): warning: In file included from...
 src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
   *           - Macros to access peripheral<92>s registers hardware
@@ -60,7 +73,7 @@ compiling main.c...
 linking...
 Program Size: Code=16144 RO-data=1064 RW-data=0 ZI-data=1800  
 FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 6 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 
