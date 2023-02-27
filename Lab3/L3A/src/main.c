@@ -27,7 +27,7 @@ void PWM_Init() {
 	TIM2->CR1 &= ~TIM_CR1_DIR; //starts up counter
 	TIM2->PSC &= ~TIM_PSC_PSC; //sets scalar value to 1
 	TIM2->ARR &= ~TIM_ARR_ARR; //setting arr to 1000
-	TIM2->ARR |= (uint_32_t)1000;
+	TIM2->ARR |= (uint32_t)1000;
 
 	TIM2->CCMR1 &= ~TIM_CCMR1_OC1M; //configure channeel to use in output compare mode
 	TIM2->CCMR1 |= TIM_CCMR1_OC1M_1; //set to 0110 for pwm mode 1
@@ -37,8 +37,10 @@ void PWM_Init() {
 	TIM2->CCER |= TIM_CCER_CC1P; //set output polarity to high
 	TIM2->CCER |= TIM_CCER_CC1E; //enable channel 1 output
 	TIM2->CCR1 &= ~TIM_CCR1_CCR1; //set the compare value for CCR and ARR
-	TIM2->CCR1 |= (uint_32_t)500;
+	TIM2->CCR1 |= (uint32_t)500;
 	TIM2->CR1 |= TIM_CR1_CEN; //enable the counter
+}
+
 
 int main() {
 	// Initialization - We will use the default 4 MHz clock
