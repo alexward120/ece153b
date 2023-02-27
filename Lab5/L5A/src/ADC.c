@@ -75,6 +75,4 @@ void ADC_Init(void) {
 	ADC1->CFGR &= ~ADC_CFGR_EXTEN;
 	
 	ADC1->CR |= ADC_CR_ADEN;
-	
-	
 }
