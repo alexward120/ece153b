@@ -29,21 +29,54 @@ void ADC_Wakeup(void) {
     }
 }
 
-void ADC_Common_Configuration() {
-    // [TODO]
+void ADC_Common_Configuration(void) {
+    SYSCFG->CFGR1 |= SYSCFG_CFGR1_BOOSTEN;
+	ADC123_COMMON->CCR |= ADC_CCR_VREFEN;
+	ADC123_COMMON->CCR &= ~ADC_CCR_PRESC;
+	ADC123_COMMON->CCR |= ADC_CCR_CKMODE;
+	ADC123_COMMON->CCR &= ~ADC_CCR_CKMODE_1;
+	ADC123_COMMON->CCR &= ~ADC_CCR_DUAL;
 }
 
 void ADC_Pin_Init(void) {
-    // [TODO]
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+	GPIOA->MODER |= GPIO_MODER_MODE1;
+	GPIOA->PUPDR &= ~GPIO_PUPDR_PUPD1;
+	GPIOA->ASCR |= GPIO_ASCR_ASC1;
 }
 
 void ADC_Init(void) {
     // [TODO] Enable & Reset ADC Clock
-
+	RCC->AHB2ENR |= RCC_AHB2ENR_ADCEN;
+	RCC->AHB2RSTR |= RCC_AHB2RSTR_ADCRST;
+	RCC->AHB2RSTR &= ~RCC_AHB2RSTR_ADCRST;
+	
     // Other ADC Initialization
     ADC_Pin_Init();
     ADC_Common_Configuration();
     ADC_Wakeup();
 
     // [TODO] Other Configuration
+	ADC1->CR |= ADC_CR_ADEN;
+	ADC1->CR |= ADC_CR_ADDIS;
+	ADC1->CFGR &= ~ADC_CFGR_RES;
+	ADC1->CFGR &= ~ADC_CFGR_ALIGN;
+	
+	ADC1->SQR1 &= ~ADC_SQR1_L;
+	ADC1->SQR1 &= ~ADC_SQR1_SQ1;
+	ADC1->SQR1 |= (ADC_SQR1_SQ1_2 | ADC_SQR1_SQ1_1);
+	
+	ADC1->DIFSEL &= ~ADC_DIFSEL_DIFSEL_6;
+	
+	ADC1->SMPR1 |= ADC_SMPR1_SMP6;
+	ADC1->SMPR1 &= ~ADC_SMPR1_SMP6_2;
+	
+	ADC1->CFGR &= ~ADC_CFGR_CONT;
+	
+	ADC1->CFGR &= ~ADC_CFGR_EXTEN;
+	
+	ADC1->CR |= ADC_CR_ADEN;
+	ADC1->CR &= ~ADC_CR_ADDIS;
+	
+	while ((ADC1->ISR & ADC_ISR_ADRDY) == 0);
 }
