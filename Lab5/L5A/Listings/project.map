@@ -682,14 +682,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       420          0          0          0          0       3082   adc.o
-       276         12          0          0          8       2116   main.o
-       246          0          0          0          0       2204   pwm.o
+       420          0          0          0          0       3104   adc.o
+       276         12          0          0          8       2138   main.o
+       246          0          0          0          0       2226   pwm.o
        140         48        392          0       1536        876   startup_stm32l476xx.o
-        90          0          0          0          0       1416   sysclock.o
+        90          0          0          0          0       1438   sysclock.o
 
     ----------------------------------------------------------------------
-      1180         60        408          0       1544       9694   Object Totals
+      1180         60        408          0       1544       9782   Object Totals
          0          0         16          0          0          0   (incl. Generated)
          8          0          0          0          0          0   (incl. Padding)
 
@@ -747,8 +747,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      2308        104        408          0       1640      10338   Grand Totals
-      2308        104        408          0       1640      10338   ELF Image Totals
+      2308        104        408          0       1640      10426   Grand Totals
+      2308        104        408          0       1640      10426   ELF Image Totals
       2308        104        408          0          0          0   ROM Totals
 
 ==============================================================================

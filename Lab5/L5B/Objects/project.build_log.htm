@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.38.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Alexander Ward, UCSB, LIC=----
+License Information: Diego Jerez, UC Santa Barbara, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.38.0.0
@@ -21,12 +21,81 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\Users\zande\Documents\ece153b\Lab5\L5B\project.uvprojx
-Project File Date:  02/26/2023
+C:\Users\djere\Classes\_CS Projects for School\ece153a\Lab5\L5B\project.uvprojx
+Project File Date:  02/22/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
+src/PWM.c(1): warning: In file included from...
+src/PWM.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+1 warning generated.
+compiling PWM.c...
+src/SysClock.c(1): warning: In file included from...
+src/SysClock.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+1 warning generated.
+compiling SysClock.c...
+src/ADC.c(1): warning: In file included from...
+src/ADC.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+1 warning generated.
+compiling ADC.c...
+src/main.c(10): warning: In file included from...
+src/ADC.h(4): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+src/main.c(37): warning: implicit conversion loses floating-point precision: 'double' to 'float' [-Wimplicit-float-conversion]
+                v_in = 3.3*((4096-((float)adc_data))/4096);
+                     ~ ~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/main.c(37): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+                v_in = 3.3*((4096-((float)adc_data))/4096);
+                          ~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+src/main.c(40): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                TIM2->CCR1 |= adc_data;
+                           ~~ ^~~~~~~~
+src/main.c(18): warning: no previous extern declaration for non-static variable 'adc_data' [-Wmissing-variable-declarations]
+int adc_data;
+    ^
+src/main.c(18): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int adc_data;
+^
+src/main.c(19): warning: no previous extern declaration for non-static variable 'v_in' [-Wmissing-variable-declarations]
+volatile float v_in;
+               ^
+src/main.c(19): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile float v_in;
+         ^
+6 warnings generated.
+compiling main.c...
+src/DAC.c(1): warning: In file included from...
+src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+src/DAC.c(9): warning: no previous prototype for function 'DAC_Write_Value' [-Wmissing-prototypes]
+void DAC_Write_Value(uint32_t value) {
+     ^
+src/DAC.c(9): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DAC_Write_Value(uint32_t value) {
+^
+static 
+src/DAC.c(14): warning: no previous prototype for function 'DAC_Init' [-Wmissing-prototypes]
+void DAC_Init(void) {
+     ^
+src/DAC.c(14): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void DAC_Init(void) {
+^
+static 
+3 warnings generated.
+compiling DAC.c...
 src/EXTI.c(1): warning: In file included from...
 src/EXTI.h(4): warning: In file included from...
 src/stm32l476xx.h(12): warning: invalid UTF-8 in comment [-Winvalid-utf8]
@@ -44,7 +113,7 @@ compiling EXTI.c...
 linking...
 Program Size: Code=2940 RO-data=424 RW-data=4 ZI-data=1652  
 FromELF: creating hex file...
-".\Objects\project.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\project.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -61,8 +130,8 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_Target_1
-  C:/Users/zande/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/zande/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.6.1/Drivers/CMSIS/Device/ST/STM32L4xx/Include
+  C:/Users/djere/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/djere/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.6.1/Drivers/CMSIS/Device/ST/STM32L4xx/Include
 
 <h2>Collection of Component Files used:</h2>
 
