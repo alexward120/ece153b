@@ -38,21 +38,21 @@ void Servo_Move_Left_90_Degree(){
 	// function to move the servo to +90 degrees
 	// set duty cycle to 1 ms
 	TIM5->CCR1 &= ~TIM_CCR1_CCR1;
-	TIM5->CCR1 = 99;
+	TIM5->CCR1 = 49;
 
 }
 
 void Servo_Move_Center(){
 	// function to move the servo to 0 degrees
 	TIM5->CCR1 &= ~TIM_CCR1_CCR1;
-	TIM5->CCR1 = 149;
+	TIM5->CCR1 = 134;
 }
 
 void Servo_Move_Right_90_Degree(){
 	// function to move the servo to -90 degrees
 	// set duty cycle to 2 ms
 	TIM5->CCR1 &= ~TIM_CCR1_CCR1;
-	TIM5->CCR1 = 210;
+	TIM5->CCR1 = 230;
 
 }
 
@@ -67,11 +67,12 @@ int main() {
 			// Move servo to +90 degrees, 0 degrees, and -90 degrees
 			// [TODO]
 			Servo_Move_Left_90_Degree();
-			for(i=0;i<100000;i++);  		// delay
-			Servo_Move_Right_90_Degree();
-			for(i=0;i<100000;i++);  		// delay
+			for(i=0;i<500000;i++);  		// delay
 			Servo_Move_Center();
-			for(i=0;i<100000;i++);  		// delay
+			for(i=0;i<500000;i++);  		// delay	
+			Servo_Move_Right_90_Degree();
+			for(i=0;i<500000;i++);  		// delay
+			
 
     }
 }
