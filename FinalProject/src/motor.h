@@ -5,7 +5,7 @@
 
 void Motor_GPIO_Init(void);
 
-void delay(void);
+void Motor_delay(void);
 
 void Power_North(void);
 

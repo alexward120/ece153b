@@ -1,30 +1,26 @@
-/*
- * ECE 153B - Winter 2023
- *
- * Name(s):
- * Section:
- * Lab: 6A
- */
+// Name(s): Alexander Ward, Diego Jerez
 
 #include "stm32l476xx.h"
 #include "motor.h"
-#include "LCD.h"
+#include "SPI.h"
+#include "MY_ILI9341.h"
+#include "UART.h"
+#include "SysTimer.h"
+#include "SysClock.h"
 
-void GPIO_Init(void){	
-	// Activate gpio, set mode to output, set speed to very fast, set type to push pull and turn off pupd
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
-	GPIOC->MODER = 0;
-	GPIOC->MODER |= GPIO_MODER_MODE5_0 | GPIO_MODER_MODE6_0 | GPIO_MODER_MODE8_0 | GPIO_MODER_MODE9_0;
-	GPIOC->OSPEEDR |= GPIO_OSPEEDR_OSPEED5 | GPIO_OSPEEDR_OSPEED6 |GPIO_OSPEEDR_OSPEED8 | GPIO_OSPEEDR_OSPEED9;
-	GPIOC->OTYPER = 0;
-	GPIOC->PUPDR = 0;
-}
 
 int main(void){
-	GPIO_Init();
+	System_Clock_Init(); //80 mhz clock
+	Motor_GPIO_Init(); //pins pc5, pc6, pc8, pc9
 	
-	// Rotate 360 degrees either clockwise or counter-clockwise
-	Full_Stepping_CounterClockwise();
-	Depower_Horizontal();
-	Depower_Vertical();
+	SPI_GPIO_Init(); //pins pb3, pb4, pb5 for lcd SPI1   //pins pb13, pb14, pb15 for touch SPI2
+	SPI_Init();
+	
+	UART1_Init();
+	UART1_GPIO_Init(); //pins pa9, pa10 for usart1
+	
+	
+	while(1) {
+		//TODO 
+	}
 }

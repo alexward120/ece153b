@@ -1,15 +1,9 @@
-/*
- * ECE 153B - Winter 2023
- *
- * Name(s):
- * Section:
- * Lab: 6A
- */
+// Name(s): Alexander Ward, Diego Jerez
 
 #include "stm32l476xx.h"
 #include "motor.h"
 
-void Motor_GPIO_Init(void){	
+void Motor_GPIO_Init(void){	//pins pc5, pc6, pc8, pc9
 	// Activate gpio, set mode to output, set speed to very fast, set type to push pull and turn off pupd
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
 	GPIOC->MODER = 0;
@@ -22,7 +16,7 @@ void Motor_GPIO_Init(void){
 
 #define DELAY 800	// delay between steps of the sequences
 
-void delay(void) {
+void Motor_delay(void) {
 	for (int i=0; i<DELAY; i++);
 }
 
@@ -68,19 +62,19 @@ void Full_Stepping_Clockwise(void){
 	for (int i=0; i<512; i++) {
 		Depower_Horizontal();
 		Power_North();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
 		Power_East();
-		delay();
+		Motor_delay();
 		
 		Depower_Horizontal();
 		Power_South();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
 		Power_West();
-		delay();
+		Motor_delay();
 	}
 }
 
@@ -88,19 +82,19 @@ void Full_Stepping_CounterClockwise(void){
 	for (int i=0; i<512; i++) {
 		Depower_Horizontal();
 		Power_North();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
 		Power_West();
-		delay();
+		Motor_delay();
 		
 		Depower_Horizontal();
 		Power_South();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
 		Power_East();
-		delay();
+		Motor_delay();
 	}
 }
 
@@ -109,28 +103,28 @@ void Half_Stepping_Clockwise(void){
 	Power_North();
 	for (int i=0; i<512; i++) {
 		Power_North();
-		delay();
+		Motor_delay();
 		
 		Depower_Horizontal();
-		delay();
+		Motor_delay();
 		
 		Power_East();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
-		delay();
+		Motor_delay();
 		
 		Power_South();
-		delay();
+		Motor_delay();
 		
 		Depower_Horizontal();
-		delay();
+		Motor_delay();
 		
 		Power_West();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
-		delay();
+		Motor_delay();
 	}
 }
 
@@ -139,28 +133,28 @@ void Half_Stepping_CounterClockwise(void){
 	Power_North();
 	for (int i=0; i<512; i++) {
 		Power_North();
-		delay();
+		Motor_delay();
 		
 		Depower_Horizontal();
-		delay();
+		Motor_delay();
 		
 		Power_West();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
-		delay();
+		Motor_delay();
 		
 		Power_South();
-		delay();
+		Motor_delay();
 		
 		Depower_Horizontal();
-		delay();
+		Motor_delay();
 		
 		Power_East();
-		delay();
+		Motor_delay();
 		
 		Depower_Vertical();
-		delay();
+		Motor_delay();
 	}
 
 }
